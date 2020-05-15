@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { IntlProvider } from "react-intl";
@@ -16,42 +16,31 @@ const messages = {
 };
 
 const App = () => {
-  const [language, setLanguage] = useState(localStorage.getItem("language"));
-  const contextValue = {
-    language,
-    en: () => setLanguage("en"),
-    fr: () => setLanguage("fr")
-  };
-
-  useEffect(() => {
-    localStorage.setItem("language", language);
-  });
+  const { language } = useContext(LanguageContext);
 
   return (
     <>
-      <LanguageContext.Provider value={contextValue}>
-        <IntlProvider locale={language} messages={messages[language]}>
-          <Router>
-            <div>
-              <Navbar />
-              <Switch>
-                <Route path="/about">
-                  <About />
-                </Route>
-                <Route path="/works/:projectSlug">
-                  <Works />
-                </Route>
-                <Route path="/works">
-                  <Works />
-                </Route>
-                <Route path="/">
-                  <Home />
-                </Route>
-              </Switch>
-            </div>
-          </Router>
-        </IntlProvider>
-      </LanguageContext.Provider>
+      <IntlProvider locale={language} messages={messages[language]}>
+        <Router>
+          <div>
+            <Navbar language={language} />
+            <Switch>
+              <Route path="/about">
+                <About />
+              </Route>
+              <Route path="/works/:projectSlug">
+                <Works />
+              </Route>
+              <Route path="/works">
+                <Works />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </IntlProvider>
     </>
   );
 };

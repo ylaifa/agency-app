@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { LanguageProvider } from "./context/LanguageContext";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <LanguageProvider>
     <App />
-  </React.StrictMode>,
+  </LanguageProvider>,
   document.getElementById("root")
 );
 
