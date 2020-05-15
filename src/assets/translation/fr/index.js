@@ -1,11 +1,13 @@
 import works from "./works.json";
 import about from "./about.json";
 import home from "./home.json";
+import project from "./project.json";
 
-const en = {
+const fr = {
     ...works,
     ...about,
     ...home,
+    ...project
 };
 
-export default en;
+export default fr;
